@@ -1,10 +1,10 @@
-float3 CurColor;
+float3 CurColor = float3(0,0,0);
 float3 TexColor = Tex.SampleLevel(TexSampler, saturate(UV), 0);
-float3 chromaticSample;
-float TexAlphaSample;
+float3 chromaticSample = float3(0,0,0);
+float TexAlphaSample = 0;
 float TexAlpha = Tex.SampleLevel(TexSampler, saturate(UV), 0).a;
 
-int i;
+float i = 0;
 Steps = max(Steps, 1);
 float StepSize = Distance / (int) Steps;
 float2 chromaticUV = UV - Vector*0.5*Distance;
@@ -31,4 +31,4 @@ while ( i < (int) Steps)
 }
 // CurColor = CurColor - (1/Steps);
 CurColor = CurColor + TexColor;
-return float4( (CurColor * Brightness ) * ( saturate ( TexAlphaSample) ), TexAlphaSample );
+return float4((CurColor * Brightness) * (saturate(TexAlphaSample)), TexAlphaSample);
